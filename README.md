@@ -4,10 +4,30 @@
   * sql
 
 # 安装
+```
+go get -u github.com/cjie9759/goWeb
+```
 
 # demo运行
 ``` golang
-fun main(){
-  fmt.Println(NewApp().Get(&controller.Index{}).SetMiddle(MWLog).Run(":17127"))
+package main
+
+import (
+	"fmt"
+
+	"github.com/cjie9759/goWeb"
+	"github.com/cjie9759/goWeb/controller"
+)
+
+func main() {
+  fmt.Println(
+    // 创建app
+    goWeb.NewApp().
+		// 注册服务
+		Get(&controller.Index{}).
+		// 加载中间件
+		SetMiddle(goWeb.MWLog).
+		// 运行
+		Run(":17127"))
 }
 ```
