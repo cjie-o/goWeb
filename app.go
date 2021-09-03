@@ -12,30 +12,30 @@ import (
 	"github.com/cjie9759/goWeb/ext/weblib"
 )
 
-type application struct {
+type Application struct {
 	routes  map[string]reflect.Type
 	isDebug bool
 	m       func(h http.Handler) http.Handler
 }
 
-func NewApp() *application {
-	return &application{
+func NewApp() *Application {
+	return &Application{
 		routes:  make(map[string]reflect.Type),
 		isDebug: false,
 		m:       func(h http.Handler) http.Handler { return h },
 	}
 }
 
-func (p *application) Debug() *application {
+func (p *Application) Debug() *Application {
 	p.isDebug = true
 	return p
 }
-func (p *application) SetMiddle(f func(h http.Handler) http.Handler) *application {
+func (p *Application) SetMiddle(f func(h http.Handler) http.Handler) *Application {
 	p.m = f
 	return p
 }
 
-func (p *application) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (p *Application) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	wB := weblib.NewWebBase(w, r)
 	defer func() {
 		if e := recover(); e != nil {
@@ -83,19 +83,19 @@ func (p *application) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	call()
 }
 
-func (p *application) Get(c interface{}) *application {
+func (p *Application) Get(c interface{}) *Application {
 	ele := reflect.TypeOf(c).Elem()
 	p.routes[ele.Name()] = ele
 	return p
 }
 
-func (p *application) Run(addr string) error {
+func (p *Application) Run(addr string) error {
 	p.printRoutes()
 	fmt.Printf("listen on %s\n", addr)
 	return http.ListenAndServe(addr, p.m(p))
 }
 
-func (p *application) printRoutes() {
+func (p *Application) printRoutes() {
 	for k, v := range p.routes {
 		n := reflect.New(v).Type()
 		fmt.Println(k, n.String())
