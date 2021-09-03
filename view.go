@@ -2,8 +2,9 @@ package goWeb
 
 import (
 	"embed"
-	"goWeb/controller"
-	"goWeb/ext/weblib"
+
+	"github.com/cjie9759/goWeb/controller"
+	"github.com/cjie9759/goWeb/ext/weblib"
 )
 
 //go:embed public/*

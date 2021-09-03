@@ -2,7 +2,8 @@ package goWeb
 
 import (
 	"fmt"
-	"goWeb/controller"
+
+	"github.com/cjie9759/goWeb/controller"
 )
 
 func Demo() {

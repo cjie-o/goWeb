@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"goWeb/ext/session"
-	"goWeb/ext/weblib"
+	"github.com/cjie9759/goWeb/ext/session"
+	"github.com/cjie9759/goWeb/ext/weblib"
 )
 
 type Index struct {

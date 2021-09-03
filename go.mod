@@ -1,4 +1,4 @@
-module goWeb
+module github.com/cjie9759/goWeb
 
 go 1.16
 

@@ -1,9 +1,10 @@
 package controller
 
 import (
-	"goWeb/ext/session"
-	"goWeb/ext/weblib"
 	"net/http"
+
+	"github.com/cjie9759/goWeb/ext/session"
+	"github.com/cjie9759/goWeb/ext/weblib"
 )
 
 var Sm *session.SessionManager
