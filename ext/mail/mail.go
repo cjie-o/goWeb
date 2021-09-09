@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 	"net/smtp"
+	"strings"
 )
 
 type Mail struct {
@@ -46,7 +47,9 @@ func (M *Mail) Send() error {
 	header["Subject"] = M.Sub
 	header["Content-Type"] = "text/html;chartset=UTF-8"
 
-	body := M.Body
+	// 换行替换
+	// body := M.Body
+	body := strings.ReplaceAll(M.Body, "\n", "<\br>")
 
 	message := ""
 
