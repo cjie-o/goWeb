@@ -6,13 +6,14 @@ import (
 	"log"
 	"net"
 	"net/smtp"
+	"strings"
 )
 
 type Mail struct {
 	User string
 	Pwd  string
 	From string
-	To   string
+	To   []string
 	Sub  string
 	Body string
 }
@@ -26,7 +27,7 @@ func (M *Mail) Init(User string, Pwd string, From string) *Mail {
 	M.From = From
 	return M
 }
-func (M *Mail) Set(To string, Sub string, Body string) *Mail {
+func (M *Mail) Set(To []string, Sub string, Body string) *Mail {
 	M.To = To
 	M.Sub = Sub
 	M.Body = Body
@@ -36,15 +37,15 @@ func (M *Mail) Send() error {
 	host := "smtp.exmail.qq.com"
 	port := 465
 	email := M.User
-	pwd := M.Pwd    // 这里填你的授权码
-	toEmail := M.To // 目标地址
+	pwd := M.Pwd                       // 这里填你的授权码
+	toEmail := strings.Join(M.To, ",") // 目标地址
 
 	header := make(map[string]string)
 
 	header["From"] = M.From + "<" + email + ">"
 	header["To"] = toEmail
 	header["Subject"] = M.Sub
-	header["Content-Type"] = "text/html;chartset=UTF-8"
+	header["Content-Type"] = "text/plain;chartset=UTF-8"
 
 	body := M.Body
 
@@ -67,7 +68,7 @@ func (M *Mail) Send() error {
 		fmt.Sprintf("%s:%d", host, port),
 		auth,
 		email,
-		[]string{toEmail},
+		M.To,
 		[]byte(message),
 	)
 	return err
