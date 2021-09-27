@@ -48,8 +48,8 @@ func (M *Mail) Send() error {
 	header["Content-Type"] = "text/plain;chartset=UTF-8"
 
 	// 换行替换
-	// body := M.Body
-	body := strings.ReplaceAll(M.Body, "\n", "<\br>")
+	body := M.Body
+	// body := strings.ReplaceAll(M.Body, "\n", "<\br>")
 
 	message := ""
 
