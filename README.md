@@ -9,25 +9,8 @@ go get -u github.com/cjie9759/goWeb
 ```
 
 # demo运行
-``` golang
-package main
-
-import (
-	"fmt"
-
-	"github.com/cjie9759/goWeb"
-	"github.com/cjie9759/goWeb/controller"
-)
-
-func main() {
-  fmt.Println(
-    // 创建app
-    goWeb.NewApp().
-		// 注册服务
-		Get(&controller.Index{}).
-		// 加载中间件
-		SetMiddle(goWeb.MWLog).
-		// 运行
-		Run(":17127"))
-}
+``` bash
+git clone git@github.com:cjie9759/goWeb.git/Demo t
+cd t && go mod tidy
+go run .
 ```
