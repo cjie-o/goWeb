@@ -10,10 +10,8 @@
             "request": "launch",
             "mode": "auto",
             "args": [
-                "-p",
-                "socks5://127.0.0.1:8080",
-                "-a",
-                ":17047"
+             
+             
             ],
             "program": "${workspaceFolder}"
         }

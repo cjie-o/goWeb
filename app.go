@@ -1,6 +1,7 @@
-package goWeb
+package goweb
 
 import (
+	"embed"
 	"fmt"
 	"log"
 	"net/http"
@@ -16,13 +17,15 @@ type Application struct {
 	routes  map[string]reflect.Type
 	isDebug bool
 	m       func(h http.Handler) http.Handler
+	fs      *embed.FS
 }
 
-func NewApp() *Application {
+func NewApp(fs *embed.FS) *Application {
 	return &Application{
 		routes:  make(map[string]reflect.Type),
 		isDebug: false,
 		m:       func(h http.Handler) http.Handler { return h },
+		fs:      fs,
 	}
 }
 
@@ -53,7 +56,7 @@ func (p *Application) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		a := &View{}
 		a.W = w
 		a.R = r
-		a.Init()
+		a.Init(p.fs)
 		return
 	}
 

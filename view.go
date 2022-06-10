@@ -1,14 +1,11 @@
-package goWeb
+package goweb
 
 import (
 	"embed"
 
-	"github.com/cjie9759/goWeb/controller"
+	"github.com/cjie9759/goWeb/Demo/controller"
 	"github.com/cjie9759/goWeb/ext/weblib"
 )
-
-//go:embed public/*
-var fs embed.FS
 
 type View struct {
 	controller.BaseApp
@@ -16,7 +13,7 @@ type View struct {
 	// Fs embed.FS
 }
 
-func (t *View) Init() {
+func (t *View) Init(fs *embed.FS) {
 	a := t.R.URL.String()
 	b, err := fs.ReadFile("public" + a)
 	if err != nil {
